@@ -8,39 +8,63 @@
 
 import UIKit
 import CoreLocation
+import MapKit
 
-class ViewController: UIViewController, CLLocationManagerDelegate {
+class ViewController: UIViewController {
 
+    @IBOutlet weak var mapView: MKMapView!
     let locationManager = CLLocationManager()
+    let regionInMeters: Double = 1000
+    
     override func viewDidLoad() {
         super.viewDidLoad()
-        locationManager.requestAlwaysAuthorization()
-        
-        
-        if CLLocationManager.locationServicesEnabled(){
-            locationManager.delegate = self
-            locationManager.desiredAccuracy = kCLLocationAccuracyBest
-            locationManager.startUpdatingLocation()
-        }
-        
+        checkLocationServices()
     }
     
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-        if let location = locations.first{
-            print(location.coordinate)
-        }
-    }
     
-    func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus){
-        if (status == CLAuthorizationStatus.denied){
+    func checkLocationServices(){
+        if(CLLocationManager.locationServicesEnabled()) {
+            setupLocationManager()
+            checkLocationAuthorization()
+            } else{
             showLocationDisabledPopup()
+            }
+    }
+    
+    func centerViewOnUserLocation(){
+        if let location = locationManager.location?.coordinate{
+            let region = MKCoordinateRegion.init(center: location, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+            mapView.setRegion(region, animated: true)
+        }
+    }
+    
+    func checkLocationAuthorization(){
+        switch CLLocationManager.authorizationStatus(){
+        
+        case .authorizedAlways:
+            centerViewOnUserLocation()
+            locationManager.startUpdatingLocation()
+        break
+            
+        case .denied:
+            showLocationDisabledPopup()
+            break
+        case .authorizedWhenInUse:
+            showLocationDisabledPopup()
+            break
+        case .restricted:
+            showLocationDisabledPopup()
+            break
+        case .notDetermined:
+            locationManager.requestAlwaysAuthorization()
+            break
         }
     }
     
     func showLocationDisabledPopup(){
         let alertController = UIAlertController(
             title: "Background Location Acces Disabeled",
-            message: "In order to wake you op we need your location",
+            message: "In order to wake you op we need always your location",
             preferredStyle: .alert)
         
         let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
@@ -56,9 +80,27 @@ class ViewController: UIViewController, CLLocationManagerDelegate {
         self.present(alertController,animated: true,completion: nil)
         
     }
-
     
+    private func setupLocationManager() {
+        if CLLocationManager.locationServicesEnabled(){
+            locationManager.delegate = self
+            locationManager.desiredAccuracy = kCLLocationAccuracyBest
+            locationManager.startUpdatingLocation()
+        }
+    }
+}
 
-
+extension ViewController: CLLocationManagerDelegate {
+    
+    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+            guard let location = locations.last else {return}
+            let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
+            let region = MKCoordinateRegion.init(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
+            mapView.setRegion(region, animated: true)
+        
+       func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+            checkLocationAuthorization()
+        }
+    }
 }
 
