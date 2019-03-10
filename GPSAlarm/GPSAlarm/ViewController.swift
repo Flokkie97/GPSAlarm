@@ -16,16 +16,24 @@ class ViewController: UIViewController, UISearchBarDelegate {
     @IBOutlet weak var mapView: MKMapView!
     
     let locationManager = CLLocationManager()
+    let alert = UIAlertController(title: "No location set", message: "There is no location selected on the map. We need a location to wake you up. Please search for a location in the searchbar", preferredStyle: .actionSheet)
     let regionInMeters: Double = 1000
     let locationSearcher = LocationSearcher()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
         checkLocationServices()
+        centerViewOnUserLocation()
         searchBarMap.delegate = self
     }
     
     
+    @IBAction func touchSetAlarm(_ sender: Any) {
+        if(mapView.annotations.count <= 1){
+            self.present(alert,animated: true)
+        }
+    }
     func checkLocationServices(){
         if(CLLocationManager.locationServicesEnabled()) {
             setupLocationManager()
@@ -46,7 +54,6 @@ class ViewController: UIViewController, UISearchBarDelegate {
         switch CLLocationManager.authorizationStatus(){
         
         case .authorizedAlways:
-            centerViewOnUserLocation()
             locationManager.startUpdatingLocation()
         break
             
@@ -67,6 +74,8 @@ class ViewController: UIViewController, UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         searchBarMap.becomeFirstResponder()
+        self.searchBarMap.endEditing(true)
+        mapView.removeAnnotations(mapView.annotations)
         
         let geocoder = CLGeocoder()
         
@@ -81,7 +90,7 @@ class ViewController: UIViewController, UISearchBarDelegate {
                 
                 self.mapView.addAnnotation(anno)
                 self.mapView.selectAnnotation(anno, animated: true)
-               let region = MKCoordinateRegion.init(center: anno.coordinate, latitudinalMeters: self.regionInMeters, longitudinalMeters: self.regionInMeters)
+               let region = MKCoordinateRegion.init(center: anno.coordinate, latitudinalMeters: self.regionInMeters*10, longitudinalMeters: self.regionInMeters*10)
                 self.mapView.setRegion(region, animated: true)
                 
             }else{
