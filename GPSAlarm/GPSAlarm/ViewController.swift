@@ -10,15 +10,19 @@ import UIKit
 import CoreLocation
 import MapKit
 
-class ViewController: UIViewController {
+class ViewController: UIViewController, UISearchBarDelegate {
 
+    @IBOutlet weak var searchBarMap: UISearchBar!
     @IBOutlet weak var mapView: MKMapView!
+    
     let locationManager = CLLocationManager()
     let regionInMeters: Double = 1000
+    let locationSearcher = LocationSearcher()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         checkLocationServices()
+        searchBarMap.delegate = self
     }
     
     
@@ -59,6 +63,32 @@ class ViewController: UIViewController {
             locationManager.requestAlwaysAuthorization()
             break
         }
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBarMap.becomeFirstResponder()
+        
+        let geocoder = CLGeocoder()
+        
+        if let query = searchBarMap.text{
+            geocoder.geocodeAddressString(query) { (placemarks:[CLPlacemark]?, error:Error?) in
+            if error == nil{
+                let placemarks = placemarks?.first
+                
+                let anno = MKPointAnnotation()
+                anno.coordinate = (placemarks?.location?.coordinate)!
+                anno.title = query
+                
+                self.mapView.addAnnotation(anno)
+                self.mapView.selectAnnotation(anno, animated: true)
+               let region = MKCoordinateRegion.init(center: anno.coordinate, latitudinalMeters: self.regionInMeters, longitudinalMeters: self.regionInMeters)
+                self.mapView.setRegion(region, animated: true)
+                
+            }else{
+                print(error?.localizedDescription ?? "error")
+            }
+        }
+    }
     }
     
     func showLocationDisabledPopup(){
