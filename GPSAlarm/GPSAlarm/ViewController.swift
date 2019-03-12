@@ -14,13 +14,14 @@ class ViewController: UIViewController, UISearchBarDelegate {
 
     @IBOutlet weak var searchBarMap: UISearchBar!
     @IBOutlet weak var mapView: MKMapView!
+    @IBOutlet weak var alarmButton: UIButton!
     
     let locationManager = CLLocationManager()
     var destination  = CLLocationCoordinate2D()
     var destinationName = ""
     let alert = UIAlertController(title: "No location set", message: "There is no location selected on the map. We need a location to wake you up. Please search for a location in the searchbar", preferredStyle: .actionSheet)
-    let regionInMeters: Double = 1000
-    let locationSearcher = LocationSearcher()
+    let regionInMeters: Double = 500
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -33,16 +34,13 @@ class ViewController: UIViewController, UISearchBarDelegate {
     
     @IBAction func touchSetAlarm(_ sender: Any) {
         checkLocationAuthorization()
+        alarmButton.isEnabled = false
         if(mapView.annotations.count <= 1){
             self.present(alert,animated: true)
         }
         
         else{
-       
-            let region = CLCircularRegion(center: destination,
-                                          radius: 1000,
-                                          identifier: destinationName)
-            
+            let region = CLCircularRegion(center: destination, radius: regionInMeters,identifier: destinationName)
             region.notifyOnEntry = true
             region.notifyOnExit = false
             locationManager.startMonitoring(for: region)
@@ -154,30 +152,22 @@ class ViewController: UIViewController, UISearchBarDelegate {
             preferredStyle: .alert)
         alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
          self.present(alertController,animated: true,completion: nil)
+         self.alarmButton.isEnabled = true
     }
 }
 
 
 
 extension ViewController: CLLocationManagerDelegate {
-    
-    
-    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-            guard let location = locations.last else {return}
-            let center = CLLocationCoordinate2D(latitude: location.coordinate.latitude, longitude: location.coordinate.longitude)
-            let region = MKCoordinateRegion.init(center: center, latitudinalMeters: regionInMeters, longitudinalMeters: regionInMeters)
-            mapView.setRegion(region, animated: true)
-    }
-        
-       func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+     func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
             checkLocationAuthorization()
             mapView.showsUserLocation = (status == .authorizedAlways)
         }
         
         func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
-            if let region = region as? CLCircularRegion {
-                let identifier = region.identifier
+            if region is CLCircularRegion {
                 handleWakeUp()
+                locationManager.stopMonitoring(for: region)
             }
         }
 }

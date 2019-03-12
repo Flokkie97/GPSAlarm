@@ -13,7 +13,6 @@
 		E5197850223191D100321032 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E519784F223191D100321032 /* Assets.xcassets */; };
 		E5197853223191D100321032 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E5197851223191D100321032 /* LaunchScreen.storyboard */; };
 		E519785C2231996C00321032 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E519785B2231996C00321032 /* MapKit.framework */; };
-		E52CCC2522358F2300515E88 /* LocationSearcher.swift in Sources */ = {isa = PBXBuildFile; fileRef = E52CCC2422358F2300515E88 /* LocationSearcher.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -25,7 +24,6 @@
 		E5197852223191D100321032 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		E5197854223191D100321032 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		E519785B2231996C00321032 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
-		E52CCC2422358F2300515E88 /* LocationSearcher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationSearcher.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -62,7 +60,6 @@
 			children = (
 				E5197848223191CF00321032 /* AppDelegate.swift */,
 				E519784A223191CF00321032 /* ViewController.swift */,
-				E52CCC2422358F2300515E88 /* LocationSearcher.swift */,
 				E519784C223191CF00321032 /* Main.storyboard */,
 				E519784F223191D100321032 /* Assets.xcassets */,
 				E5197851223191D100321032 /* LaunchScreen.storyboard */,
@@ -156,7 +153,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				E519784B223191CF00321032 /* ViewController.swift in Sources */,
-				E52CCC2522358F2300515E88 /* LocationSearcher.swift in Sources */,
 				E5197849223191CF00321032 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
