@@ -3,7 +3,7 @@
 ## Introduction
 Voor de course Develop an iOS App moeten er verschillende producten worden opgeleverd om de daar bijhorende competenties van dit vak aan te te tonen. Onderdeel van deze producten is een eigen app maken waarin verdiept wordt in de frameworks van Apple. 
 
-Voor deze opdracht is er gekozen om een watchOS app te maken die een extensie is op een iOS app. De app die hiervoor gemaakt is is de 'GPSAlarm' app.
+Voor deze opdracht is er gekozen om iOS app te maken. De app die hiervoor gemaakt is is de 'GPSAlarm' app.
 
 ## Introduction to the GPSAlarm App
 Als ik in de trein zit wil ik af en toe een dutje doen na een zware dag vol met college's. Echter ben ik altijd bang dat ik een overstap of station mis als ik even ga slapen. De standaard wekker app van Apple werkt dan wel, maar bij een vertraging heb ik de slaaptijd niet goed kunnen benutten. Daarom is het idee ontstaan om een app te maken die kijkt naar je locatie om vervolgens je te wekken als je in de buurt van deze locatie bent.
