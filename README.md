@@ -18,7 +18,7 @@ Als ik in de trein zit wil ik af en toe een dutje doen na een zware dag vol met 
 | R5 | De app moet de privacy van de gebruiker waarborgen volgens de Apple standaarden die gehanteerd worden     |    **M** |
 | R6 | De app moet events afvangen als een gebruiker binnen zich binnen een straal van 500 meter van de gezochte loctie  |    **M** |
 | R7 | De app moet een alarm af laten gaan op de gegeven locatie  |    **S** |
-| R8 | De app moet het afvangen dat er meerdere lcoaties gedisplayed kunnen worden op de kaart  |    **S** |
+| R8 | De app moet het afvangen dat er meerdere locaties gedisplayed kunnen worden op de kaart  |    **S** |
 
 
 
