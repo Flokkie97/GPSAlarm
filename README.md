@@ -3,14 +3,28 @@
 ## Introduction
 Voor de course Develop an iOS App moeten er verschillende producten worden opgeleverd om de daar bijhorende competenties van dit vak aan te te tonen. Onderdeel van deze producten is een eigen app maken waarin verdiept wordt in de frameworks van Apple. 
 
-Voor deze opdracht is er gekozen om een watchOS app te maken die een extensie is op een iOS app. De app die hiervoor gemaakt is is de 'Conductor' app.
+Voor deze opdracht is er gekozen om een watchOS app te maken die een extensie is op een iOS app. De app die hiervoor gemaakt is is de 'GPSAlarm' app.
 
-## Introduction to the Conductor App
-Bij repetitieavonden valt het mij vaak op. Onze dirigent heeft moeite om bij een stuk het juiste tempo aan te houden. Gelukkig biedt zijn metronoom daarin de helpende hand. Echter zijn er gedurende het stuk tempo en maatwisselingen en dat maakt de metronoom juist weer onhandig. Tevens is het zo dat de metronoom piepjes geeft die natuurlijk niet te horen zijn als een heel orkest aan het spelen is. Een mooie kans dus om hiervoor een watchOS app te maken die een dirigent kan helpen om het tempo, gedurende het stuk aan te houden.
+## Introduction to the GPSAlarm App
+Als ik in de trein zit wil ik af en toe een dutje doen na een zware dag vol met college's. Echter ben ik altijd bang dat ik een overstap of station mis als ik even ga slapen. De standaard wekker app van Apple werkt dan wel, maar bij een vertraging heb ik de slaaptijd niet goed kunnen benutten. Daarom is het idee ontstaan om een app te maken die kijkt naar je locatie om vervolgens je te wekken als je in de buurt van deze locatie bent.
 
 ### Uitwerking voor de iOS app
-Het idee is dat een dirigent een stuk in zijn telefoon kan zetten. Daarin kan hij verschillende tempi aangeven voor meerdere maten van het stuk. Ook kan hij na een paar maten een tempowisseling toevoegen of een maatwisseling. 
+| Requirementcode        | Requirement    | MoSCoW  |
+| ------------- |-------------| -----|
+| R1   | De app moet de locatie van de gebruiker tonen op een kaart | **M** |
+| R2    | De app moet een locatie kunnen zoeken op basis van een adres      |   **M** |
+| R3 | De app moet de gezochte locatie kunnen tonen op de kaart     |    **M** |
+| R4 | De app moet de gebruiker volgen tijdens de rit     |    **M** |
+| R5 | De app moet de privacy van de gebruiker waarborgen volgens de Apple standaarden die gehanteerd worden     |    **M** |
+| R6 | De app moet events afvangen als een gebruiker binnen zich binnen een straal van 500 meter van de gezochte loctie  |    **M** |
+| R7 | De app moet een alarm af laten gaan op de gegeven locatie  |    **S** |
+| R8 | De app moet het afvangen dat er meerdere lcoaties gedisplayed kunnen worden op de kaart  |    **S** |
 
 
-### Uitwerking voor de watchOS App
-De watchOS App wordt de extensie van de iOS app. Bedoeling hier van is dat de Apple Watch tikken geeft op het tempo, zoals eerder in de app gezet, van de muziek. Omdat een Apple Watch om de pols zit van een persoon is het makkelijker om tempo te houden in een muziek stuk, zonder dat er een metronoom aan te pas moet komen.
+
+
+
+
+
+
+
